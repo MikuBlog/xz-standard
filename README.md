@@ -1,6 +1,6 @@
-# XZ-ADMIN-DOCS
+# XZ-STANDARD
 
-XZ-ADMIN 文档源码
+鲸云网络前端开发规范文档源码
 
 ## Build Setup
 ``` bash
