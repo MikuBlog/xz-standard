@@ -1,95 +1,105 @@
-# 快速开始
+# 业务层
 
-## 安装编译器
+<br/>
 
-如果想体验`uniapp`极致的开发体验，请务必下载`HbuilderX`编译器进行开发！！！
+## 样式规范
 
-下面的一切步骤都将基于`HbuilderX`执行~
+1. 以原型为准
+	- 页面的开发以原型为准
+	- 一旦有疑问或原型有明显错误，咨询负责该项目的产品经理及`UI`进一步确认
 
-[点击此处前往下载编译器](https://www.dcloud.io/hbuilderx.html)
+<br/>
 
-## 运行项目
+2. 单位的使用
 
-新建一个文件夹，在该目录下直接使用如下命令
-```
-git clone https://github.com/MikuBlog/uni-app-resp.git
-```
+示例：
+```css
+/* 不推荐 */
+.header {
+	line-height: 50px;
+}
 
-进入到下载好的项目目录下，使用如下命令进行依赖安装
-```
-npm install
-```
-
-打开`HbuilderX`
-
-+ 选择左上角菜单`运行`
-+ 选择对应的项运行项目（如果提示需要安装xxx插件，点击确认安装，最后重新运行项目即可）
-
-#### 温馨提示
-
-如果嫌弃`npm`安装速度过慢，可以切换到淘宝镜像再使用`cnpm`进行安装
-
-```
-npm install -g cnpm --registry=https://registry.npm.taobao.org
+/* 推荐 */
+.header {
+	line-height: 100rpx;
+}
 ```
 
-然后再执行
+<br/>
 
-```
-cnpm install
-```
+3. 布局尽量采用`flex`布局
 
-## 目录结构
-
-```
-├─api
-├─components // 存放常用组件
-│  ├─lvv-popup
-│  ├─uni-badge
-│  ├─uni-card
-│  ├─uni-icons
-│  ├─uni-list
-│  ├─uni-list-item
-│  ├─uni-load-more
-│  ├─uni-popup
-│  ├─uni-rate
-│  ├─uni-search-bar
-│  └─uni-transition
-├─global
-│  ├─css
-│  └─js
-├─initial
-├─js_sdk
-│  ├─gangdiedao-uni-axios
-│  └─jsencrypt
-├─node_modules // 打包模块
-├─pages // 页面文件
-│  ├─h5_login
-│  ├─index
-│  │  ├─js
-│  │  └─scss
-│  ├─redirect
-│  └─wx_login
-├─static // 静态资源模块
-│  └─images
-├─store // vuex核心模块
-│  └─modules
-├─unpackage // 编译运行的文件
-└─utils
+示例：
+```css
+.flex-box {
+	display: flex;
+}
 ```
 
-## 页面模块结构
+> 如果布局相对复杂，那么可以使用`relative/absolute`进行定位
 
-为了方便后期的开发与维护，本后台管理系统模板对每个页面模块拆分成如下结构：
+<br/>
 
+## 请求规范
+
+1. `Loading`的使用
+
+非特殊情况，所有涉及**增/删/改**操作务必带上`Loading`(请求库已封装)
+
+示例：
+```js
+// 自带loading
+this.$http_json({
+	// todo
+})
+
+// 取消loading
+this.$http_json({
+	loading: false,
+	// todo
+})
 ```
-│  ├─home // 页面模块名称
-│  │  └─scss // 页面样式
-│  │  │  └─index.scss
-│  │  └─js // 业务逻辑模块
-│  │  │  └─operation.js // 页面逻辑文件
-│  │  │  └─property.js // 响应式属性管理文件
-│  │  ├─index.vue // 页面
+
+<br/>
+
+2. 请求成功后提示
+	- 非特殊情况，所有涉及**增/删/改**操作成功或失败都需作提示
+	- 提示成功后一秒执行回调业务操作，既能提示用户又无需用户等待太长的反应时间
+
+示例：
+```js
+this.$http_json({
+	// todo
+}).then(result => {
+	this.$showToast({
+		title: "xxx"
+	})
+	setTimeout(_ => {
+		// 提示1秒后执行相应的业务逻辑
+	}, 1000)
+})
 ```
 
-当然，怎么开发舒爽怎么来也是没问题的~~~
+<br/>
+
+3. 敏感操作先弹窗提示
+
+涉及**修改/删除**的请求时，先使用`Modal`弹窗提示，点击“确认”按钮后再执行下一步操作
+
+示例：
+```js
+// 删除接口
+this.$showModal({
+	title: "删除xxx",
+	content: "确认删除xxx吗？",
+	success: e => {
+		if(e.confirm) {
+			this.$http_json({
+				// todo
+			}).then(result => {
+				// todo
+			})
+		}
+	}
+})
+```
