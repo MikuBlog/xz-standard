@@ -215,6 +215,18 @@ Vue.prototype.cdnUrl = "http://xxx.com"
 9. 避免图片路径中文命名
 
 示例：
+```js
+// 导入静态资源前缀路径
+import { cdnUrl } from '@/global/js/baseUrl'
+export default() {
+	data() {
+		return {
+			cdnUrl
+		}
+	}
+}
+```
+
 ```html
 <!-- 不推荐 --> 
 <image src="http://xxx.com/旋仔.png">
