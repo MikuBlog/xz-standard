@@ -10,8 +10,8 @@ module.exports = {
 		smoothScroll: true,
 		nav: [
 		  { text: '业务层', link: '/guide/develope/quick_start' },
-		  { text: '代码层', link: '/api/front_end' }
-			// { text: 'Utils', link: '/utils/front_end' },
+		  { text: '代码层', link: '/api/front_end' },
+			{ text: '注意事项', link: '/utils/front_end' }
 			// { text: '部署', link: '/online/front_end' },
 			// { text: '日志', link: '/update/' },
 		 //  { text: '友情链接', 
@@ -32,6 +32,13 @@ module.exports = {
 			}],
 			'/api/': [{
 				title: "代码层",
+				collapsable: false,
+				children: [
+					'front_end'
+				]
+			}],
+			'/utils/': [{
+				title: "注意事项",
 				collapsable: false,
 				children: [
 					'front_end'

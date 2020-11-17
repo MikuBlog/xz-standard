@@ -1,149 +1,198 @@
+# 注意事项
 
-## 静态资源路径转换
+<br/>
 
-> 为了方便后台的静态资源迁移，于是有了以上这个接口。
+## H5/小程序部署前
 
-> tips: 静态资源的前缀路径可在 global/js/baseUrl.js下修改`prefixUrl`字段值。
+<br/>
 
-```js
-// 接口统一请求前缀地址
-baseUrl = 'http://localhost:8087',
-// 静态资源请求前缀地址
-prefixUrl = 'http://localhost:8087'
-// 缺省占位图
-thumb = "https://myinterface.xuanzai.top/getPicture?type=error"
+**1. 修改项目名称※（如果是H5，请务必修改准确）**
+
+> 前往`mainifest.json`，选择`h5配置`,修改页面标题
+
+<br/>
+
+**2. 修改appid※（如果用到appid，请务必修改准确）**
+
+> 前往`mainifest.json`，选择`微信小程序配置`，修改微信小程序`AppID`
+
+> 前往`/global/js/baseUrl.js`，修改小程序的`appid`
+ 
+<br/>
+
+**3. 修改项目接口访问地址※**
+
+> 前往`/global/js/baseUrl.js`，将`baseUrl`等相关变量改为对应的线上地址
+
+<br/>
+
+
+<br/>
+
+## 管理端部署前
+
+<br/>
+
+**1. 去除多余菜单※**
+
+> 前往菜单管理，将不必要的菜单项设置为隐藏
+
+<br/>
+
+**2. 去除页面右上方多余`icon`※**
+
+方法1：
+> 前往`/views/Layout/components/icon_box/index.vue`，将多余的`icon`注释
+
+方法2：
+> 前往`/global/js/config.js`将对应字段设置为`false`即可隐藏
+
+<br/>
+
+**3. 去除点击右上角头像展开多余的下拉菜单项※**
+
+> 前往`/views/Layout/components/drop_down/index.vue`，将多余的菜单项注释
+
+<br/>
+
+**4. 修改项目接口访问地址※**
+
+> 前往`/public/assets/js/baseUrl.js`，将`baseUrl`等相关变量值修改为对应的线上地址
+
+<br/>
+
+**5. 修改项目名称与图标※**
+
+> 前往`/public/index.html`
+
+修改项目名称示例代码：
+```html
+<!-- 修改前的写法 -->
+<title>xz-admin</title>
+
+<!-- 修改后的写法 -->
+<title>xxxx项目</title>
 ```
 
-示例:
-```js
-import { convertHttp } from '@/utils/convertHttp'
+修改项目图标示例代码：
+```html
+<!-- 修改前的写法 -->
+<link rel="icon" href="<%= BASE_URL %>assets/images/xz.png">
 
-// 返回由prefixUrl拼接的网络地址，如果传入为空，则返回缺省占位图
-const imageUrl = convertHttp(val.image) // prefixUrl + val.image
-```
-
-<br/>
-
-## JavaScript值类型判断
-
-<br/>
-
-示例
-```js
-import type from '@/utils/type'
-
-type.isNumber(val) // 判断值是否为数字类型
-type.isBoolean(val) // 判断值是否为布尔类型
-type.isString(val) // 判断值是否为字符串类型
-type.isObject(val) // 判断值是否为对象类型
-type.isNull(val) // 判断值是否为Null类型
-type.isUndefined(val) // 判断值是否为Undefined类型
-type.isSymbol(val) // 判断值是否为Symbol类型
-type.isArray(val) // 判断值是否为数组类型
-type.isDate(val) // 判断值是否为日期类型
-```
-
-<br/>
-
-## 验证字符串
-
-<br/>
-
-> tips: 以下写法仅适用于`Element UI`，在需要的页面中导入使用即可。
-
-> 表单验证请参考：[Element UI form组件的用法](https://element.eleme.cn/#/zh-CN/component/form)
-
-<br/>
-
-### 验证手机、电话号码
-
-示例:
-```js
-import { 
-  isPhone, 
-  isMobile } 
-from '@/utils/validate'
-
-isPhone(str) // true or false
-isMobile(str) // true or false
-isPhone(str) || isMobile(str) // true or false
-```
-
-<br/>
-
-### 验证邮箱
-
-示例:
-```js
-import { isEmail } from '@/utils/validate'
-
-isEmail(str) // true or false
-```
-
-<br/>
-
-### 验证身份证号码
-
-示例:
-```js
-import { isId } from '@/utils/validate'
-
-isId(str) // true or false
+<!-- 修改后的写法 -->
+<link rel="icon" href="<%= BASE_URL %>assets/images/项目图标.png">
 ```
 
 <br/>
 
-### 验证网络地址
+**6. 设置菜单栏上方的`logo`（如果项目无替换`logo`需求，可采用本地图片代替）**
 
-示例:
-```js
-import { isURL } from '@/utils/validate'
+方法1：
+> 点击右上角头像 -> 选择系统设置 -> 选择系统图标 -> 选择logo -> 上传logo
 
-isURL(str) // true or false
+方法2：
+> 前往`/views/Layout/index.vue`，将所有`logoUrl`变量换成本地图片（一共三处）
+
+方法2示例代码：
+```html
+<!-- 修改前的写法 -->
+<el-image
+	:src="logoUrl"
+	fit="cover"
+	class="logo-verticle"
+	v-show="showLogo"
+	v-if="!isCollapse"
+	@click.native="$router.push({ path: '/home/welcome' })"
+>
+	<div slot="error" class="image-slot">
+		<i class="el-icon-picture-outline"></i>
+	</div>
+</el-image>
+
+<!-- 修改后的写法 -->
+<el-image
+	:src="require('@/assets/images/xxx.png')"
+	fit="cover"
+	class="logo-verticle"
+	v-show="showLogo"
+	v-if="!isCollapse"
+	@click.native="$router.push({ path: '/home/welcome' })"
+>
+	<div slot="error" class="image-slot">
+		<i class="el-icon-picture-outline"></i>
+	</div>
+</el-image>
 ```
 
 <br/>
 
-### 验证小写字母
+**7. 设置右上角头像图片（如果项目无个人中心需求，可使用本地图片代替）**
 
-示例:
-```js
-import { isLowerCase } from '@/utils/validate'
+方法1：
+> 点击右上角头像 -> 选择个人中心 -> 上传头像即可
 
-isLowerCase(str) // true or false
+方法2：
+> 前往`/views/Layout/components/drop_down/index.vue`，将`squareUrl`变量换成本地图片
+
+方法2示例代码：
+```html
+<!-- 修改前的写法 -->
+<el-avatar shape="square" :size="45" :src="squareUrl">
+  <img src="https://myinterface.xuanzai.top/getPicture?type=error" />
+</el-avatar>
+
+<!-- 修改后的写法 -->
+<el-avatar shape="square" :size="45" :src="require('@/static/assets/xxx.png')">
+  <img src="https://myinterface.xuanzai.top/getPicture?type=error" />
+</el-avatar>
 ```
 
 <br/>
 
-### 验证大写字母
+**8. 修改项目打包路径（一般情况下无需修改项目打包路径）**
 
-示例:
+> 前往根目录，找到`public_path.js`
+
+示例代码：
 ```js
-import { isUpperCase } from '@/utils/validate'
+// 修改前
+module.exports = {
+  environment: process.env.NODE_ENV === 'production' ? '/' : '/',
+  editor: process.env.NODE_ENV === 'production' ? '/' : '/',
+}
 
-isUpperCase(str) // true or false
+// 修改后
+module.exports = {
+  environment: process.env.NODE_ENV === 'production' ? '/admin' : '/',
+  editor: process.env.NODE_ENV === 'production' ? '/admin' : '/',
+}
 ```
 
 <br/>
 
-## 加密
+（如果用到富文本，请继续往下看）
 
-示例:
+> 修改完部署路径后，继续前往`/public/assets/js/tinymce/plugins/axupimgs/plugin.js`
+
+示例代码：
 ```js
-import { encrypt } from '@/utils/encrypt'
+// 第六行代码
+var iframe1 = baseURL+'/plugins/axupimgs/upfiles.html';
 
-encrypt(str) // 加密后的字符串
+// 修改为
+var iframe1 = baseURL+'/admin/plugins/axupimgs/upfiles.html';
 ```
 
-<br/>
+> 继续前往`/public/assets/js/tinymce/plugins/axupimgs/plugin.min.js`
 
-## 汉字转拼音
-
-示例:
+示例代码：
 ```js
-import { chineseToPinYin } from '@/utils/pinyin'
+// 第六行代码
+var iframe1 = '/assets/js/tinymce/plugins/axupimgs/upfiles.html';
 
-chineseToPinYin('中国') // ZhongGuo
+// 修改为
+var iframe1 = '/admin/assets/js/tinymce/plugins/axupimgs/upfiles.html';
 ```
 
-<br/>
+部署有问题，直接联系部署专员进行处理
+
