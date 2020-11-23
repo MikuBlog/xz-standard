@@ -11,8 +11,8 @@ module.exports = {
 		nav: [
 		  { text: '业务层', link: '/guide/develope/quick_start' },
 		  { text: '代码层', link: '/api/front_end' },
-			{ text: '注意事项', link: '/utils/front_end' }
-			// { text: '部署', link: '/online/front_end' },
+			{ text: '注意事项', link: '/utils/front_end' },
+			{ text: '常见问题', link: '/guide/other/question' }
 			// { text: '日志', link: '/update/' },
 		 //  { text: '友情链接', 
 			// 	items: [
@@ -28,6 +28,12 @@ module.exports = {
 				collapsable: false,
 				children: [
 					'develope/quick_start'
+				]
+			}, {
+				title: "常见问题",
+				collapsable: false,
+				children: [
+					'other/question'
 				]
 			}],
 			'/api/': [{
