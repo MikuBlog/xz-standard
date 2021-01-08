@@ -36,10 +36,17 @@
 
 示例：
 ```html
+<!-- 中文姓名 -->
+<input maxlength="20">
+<!-- 英文姓名 -->
 <input maxlength="50">
+<!-- 电话/手机号统一长度限制 -->
+<input type="number" maxlength="15">
+<!-- 非特殊情况文本长度限制 -->
+<textarea maxlength="300">
+<!-- 金额 -->
+<input type="number" maxlength="8">
 ```
-
-> tips: 非特殊情况，数字输入框限制最大值为99999999，单行文本限制30个字长度，多行文本限制300个字
 
 提出者：旋仔
 <br/>

@@ -2,9 +2,9 @@
 
 <br/>
 
-## 样式规范
+## 业务规范
 
-**1. 以原型为准**
+**1. 【所有】以原型为准**
 	- 页面的开发以原型为准
 	- 一旦有疑问或原型有明显错误，咨询负责该项目的产品经理及`UI`进一步确认
 
@@ -16,7 +16,7 @@
 
 <br/>
 
-**2. 单位的使用**
+**2. 【移动端】单位的使用**
 
 示例：
 ```css
@@ -39,7 +39,7 @@
 
 <br/>
 
-**3. 布局尽量采用`flex`布局**
+**3. 【所有】布局尽量采用`flex`布局**
 
 示例：
 ```css
@@ -58,7 +58,7 @@
 
 <br/>
 
-**4. 管理端表格文字隐藏后，鼠标浮动上去默认冒泡显示**
+**4. 【管理端】表格文字隐藏后，鼠标浮动上去默认冒泡显示**
 
 示例：
 ```html
@@ -66,9 +66,7 @@
 <el-table-column show-overflow-tooltip />
 ```
 
-> 如果布局相对复杂，那么可以使用`relative/absolute`进行定位
-
-提出者：旋仔
+提出者：海淳
 <br/>
 纳入者：旋仔
 <br/>
@@ -76,11 +74,198 @@
 
 <br/>
 
+**5. 【所有】头像/轮播图默认使用填充**
+
+示例：
+```html
+<!-- uniapp写法 -->
+<image mode="scaleToFill">
+<!-- pc端写法 -->
+<img style="object-fit: fill">
+```
+
+提出者：旋仔
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**6. 【用户端】列表为空的时候显示"暂无信息"**
+
+示例：
+```html
+<!-- uniapp -->
+<view style="text-align: center; line-height: 200rpx; color: #808080">暂无更多</view>
+```
+
+提出者：旋仔
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**7. 【用户端】页面空白时，默认使用`min-height`撑开高度，显得大气，具体需要多高根据实际情况来定**
+
+提出者：旋仔
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**8. 【移动端】富文本图片在移动端显示时，图片过大时置为100%，图片小时原样显示，综合考虑使用`max-width`**
+
+示例：
+```css
+image {
+	max-width: 100%;
+}
+img {
+	max-width: 100%;
+}
+```
+
+提出者：海淳
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**9. 【移动端】进入页面时，在`onLoad`中获取参数，在`onShow`中发出请求**
+
+示例：
+```js
+export default {
+	data() {
+		return {
+			id: ""
+		}
+	},
+	onLoad(query) {
+		this.id = query.id
+	},
+	onShow() {
+		this.getDetail()
+	}
+}
+```
+
+提出者：旋仔
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**10. 【用户端】自定义/自己写的按钮需要加上`cursor: pointer`**
+
+示例：
+```html
+<!-- pc端 -->
+<div class="btn" style="cursor: pointer"></div>
+<!-- 移动端 -->
+<view class="btn" style="cursor: pointer"></view>
+```
+
+提出者：李辉
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**11. 【所有】后台返回字符串类型的布尔值，使用三连等进行判断**
+
+示例：
+```js
+// 后台返回值"true"，"false"
+isTrue === 'true'
+isTrue === 'false'
+```
+
+提出者：文锋
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**12. 【所有】注意事件冒泡影响到父元素中的事件，如有影响，可采用如下写法解决**
+
+示例：
+```html
+<!-- uniapp -->
+<view class="parent" @click="clickParent">
+	<view class="child" @click.stop="clickChild"></view>
+</view>
+```
+
+提出者：文锋
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**13. 【移动端】遮罩下页面避免页面滚动，在`fixed`元素上增加如下事件**
+
+示例：
+```html
+<view @touchmove.prevent></view>
+```
+
+提出者：瑞林
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**14. 【所有】输入框前后空格去除，避免用户输入空格字符串**
+
+提出者：海淳
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+**15. 【所有】文本过长依照业务场景换行显示**
+
+示例：
+```css
+word-break: break-all;
+```
+
+提出者：海淳
+<br/>
+纳入者：旋仔
+<br/>
+审核者：all
+
+<br/>
+
+
 ## 请求规范
 
 **1. `Loading`的使用**
 
-非特殊情况，所有涉及**增/删/改**操作务必带上`Loading`(请求库已封装)
+非特殊情况，所有涉及**增/删/改**等`post`请求务必带上`Loading`(请求库已封装)
+
+`get`请求的搜索请带上`loading`
 
 示例：
 ```js
@@ -134,9 +319,12 @@ this.$http_json({
 
 涉及**修改/删除**的请求时，先使用`Modal`弹窗提示，点击“确认”按钮后再执行下一步操作
 
+【敏感操作】
+1. 删除
+
 示例：
 ```js
-// 删除接口
+// uniapp 删除接口
 this.$showModal({
 	title: "删除xxx",
 	content: "确认删除xxx吗？",
@@ -150,6 +338,16 @@ this.$showModal({
 		}
 	}
 })
+// 管理端
+this.$showMsgBox({ msg: `是否删除xxxxx?` }).then(() => {
+	this.$http_json({
+		url: ``,
+		method: "post",
+		data: [ item.id ]
+	}).then(() => {
+		// todo
+	});
+});
 ```
 
 提出者：旋仔
