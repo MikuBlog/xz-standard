@@ -6,6 +6,7 @@
   "dependencies": {
     "@vuepress/plugin-back-to-top": "^1.2.0",
     "@vuepress/plugin-nprogress": "^1.2.0",
+    "vconsole": "^3.3.4",
     "vuepress": "^1.2.0"
   }
 }

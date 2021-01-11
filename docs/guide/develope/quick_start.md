@@ -258,6 +258,25 @@ word-break: break-all;
 
 <br/>
 
+**16. 【所有】切忌使用`ad`或`advertisement`作为类名或`id`，否则会被浏览器识别为广告**
+
+示例：
+```html
+<!-- 避免使用如下类名或id -->
+<view class="ad"></view>
+<view class="advertisement"></view>
+<view id="ad"></view>
+<view id="advertisement"></view>
+```
+
+提出者：文锋
+<br/>
+纳入者：旋仔
+<br/>
+审核者：旋仔
+
+<br/>
+
 
 ## 请求规范
 
