@@ -269,6 +269,8 @@ word-break: break-all;
 <view id="advertisement"></view>
 ```
 
+> tips：文件路径也不要含有`ad`喲，否则也会被识别为广告的呢~
+
 提出者：文锋
 <br/>
 纳入者：旋仔
