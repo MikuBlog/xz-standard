@@ -279,6 +279,18 @@ word-break: break-all;
 
 <br/>
 
+**17. 【所有】flex布局：用`justify-content: space-around`代替`justify-content: space-evenly`**
+
+> tips：低版本的手机系统不支持`justify-content: space-evenly`~
+
+提出者：海淳
+<br/>
+纳入者：旋仔
+<br/>
+审核者：旋仔
+
+<br/>
+
 
 ## 请求规范
 
